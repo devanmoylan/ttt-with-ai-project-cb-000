@@ -1,3 +1,18 @@
 #!/usr/bin/env ruby
 
 require_relative '../config/environment'
+
+puts "Greetings, human. Would you like to play another human or a more formidable opponent?
+  Enter the number of humans to play [0, 1, 2]:"
+
+player_types = gets.strip.to_i
+
+puts "Coward." if player_types == 2
+puts "Prepare yourself for defeat." if player_types == 1
+puts "For the better, the human species is weak." if player_types == 0
+
+game = Game.new(Players::Human.new("X"), Players::Human.new("O"), board = Board.new) if player_types == 2
+game = Game.new(Players::Computer.new("X"), Players::Human.new("O"), board = Board.new) if player_types == 1
+game = Game.new(Players::Computer.new("X"), Players::Computer.new("O"), board = Board.new) if player_types == 0
+
+game.play
