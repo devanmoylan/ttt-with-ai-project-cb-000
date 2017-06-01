@@ -1,9 +1,10 @@
 
-
+# The Game class is the engine that connects players and the board
 class Game
 
   attr_accessor :board, :player_1, :player_2
 
+  # Class Constant for winning combinations
   WIN_COMBINATIONS = [
     [0,1,2],
     [3,4,5],
@@ -15,24 +16,14 @@ class Game
     [6,4,2]
   ]
 
+  #When a game is initialized, the default is to create to human players in the params, or else the players will be passed in as arguments.
   def initialize(player_1 = Players::Human.new("X"), player_2 = Players::Human.new("O"), board = Board.new)
     @player_1 = player_1
     @player_2 = player_2
     @board = board
   end
 
-  def board=(board)
-    @board = board
-  end
-
-  def player_1=(player_1)
-    @player_1 = player_1
-  end
-
-  def player_2=(player_2)
-    @player_2 = player_2
-  end
-
+  #call the board instance class method to get the turn count and see if it's even. If even, player 1, else, player 2.
   def current_player
     if @board.turn_count.even?
       @player_1
@@ -40,6 +31,7 @@ class Game
       @player_2
     end
   end
+
 
   def over?
     @board.full? || won? || draw?
